@@ -18,9 +18,9 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 ?>
 
 <div id='resume_update_button' style='color: #444; background-color: #ffd; border: 1px solid #eea;
-	padding: 10px; margin-left: 20px; margin-right: 20px; margin-top: 15px; cursor: pointer; display: none;'
-	onclick='auto_page_resume();' align=center>
-	<b>Auto refresh is paused - Click to resume</b></div>
+        padding: 10px; margin-left: 20px; margin-right: 20px; margin-top: 15px; cursor: pointer; display: none;'
+        onclick='auto_page_resume();' align=center>
+        <b>Auto refresh is paused - Click to resume</b></div>
 
 <table cellspacing=20 width=100%>
 <tr><td valign=top width=50%>
@@ -28,16 +28,13 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <!--  -->
 
 <div class="main-left-box">
-<div class="main-left-title">TOASTPOOL</div>
+<div class="main-left-title">HyperspacePool</div>
 <div class="main-left-inner">
 
 <ul>
-<li>ToastPool is a mining pool for Sia and Sia forks.</li>
-<li>ToastPool is based on YiiMP's source code and is an open source project.</li>
-<li>No registration is required, we do payouts in the currency you mine. Use your wallet address as the username.</li>
-<li>&nbsp;</li>
-<li>Payouts are made automatically every <?= $payout_freq ?> for all balances above <b><?= $min_payout ?></b>, or <b><?= $min_sunday ?></b> on Sunday.</li>
-<li>Blocks are distributed proportionally among valid submitted shares.</li>
+<li>HyperspacePool is a community-supported mining pool for Space Cash (SPACE).</li>
+<li>No registration is required - use your wallet address as your username.</li>
+<li>Payouts are made automatically every <?= $payout_freq ?> for all balances above <b><?= $min_payout ?></b> SPACE, or <b><?= $min_sunday ?></b> SPACE on Sundays. Blocks are distributed proportionally using PROP among valid submitted shares.</li>
 
 <br/>
 
@@ -54,23 +51,16 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <ul>
 
 <li>
-<b>China: </b><br/>
-<p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
-stratum+tcp://china.toastpool.com:3333
-</p>
-</li>
-
-<li>
-<b>Asia (non-China): </b><br/>
-<p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
-stratum+tcp://asia.toastpool.com:3333
-</p>
-</li>
-
-<li>
 <b>US: </b><br/>
 <p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
-stratum+tcp://us-east.toastpool.com:3333
+stratum+tcp://us.hyperspacepool.com:3333
+</p>
+</li>
+
+<li>
+<b>EU: </b><br/>
+<p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
+A european server will go live before the Hyperspace network launch!
 </p>
 </li>
 
@@ -133,40 +123,39 @@ stratum+tcp://us-east.toastpool.com:3333
 
 function page_refresh()
 {
-	pool_current_refresh();
-	pool_history_refresh();
+        pool_current_refresh();
+        pool_history_refresh();
 }
 
 function select_algo(algo)
 {
-	window.location.href = '/site/algo?algo='+algo+'&r=/';
+        window.location.href = '/site/algo?algo='+algo+'&r=/';
 }
 
 ////////////////////////////////////////////////////
 
 function pool_current_ready(data)
 {
-	$('#pool_current_results').html(data);
+        $('#pool_current_results').html(data);
 }
 
 function pool_current_refresh()
 {
-	var url = "/site/current_results";
-	$.get(url, '', pool_current_ready);
+        var url = "/site/current_results";
+        $.get(url, '', pool_current_ready);
 }
 
 ////////////////////////////////////////////////////
 
 function pool_history_ready(data)
 {
-	$('#pool_history_results').html(data);
+        $('#pool_history_results').html(data);
 }
 
 function pool_history_refresh()
 {
-	var url = "/site/history_results";
-	$.get(url, '', pool_history_ready);
+        var url = "/site/history_results";
+        $.get(url, '', pool_history_ready);
 }
 
 </script>
-

@@ -30,14 +30,14 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <div class="main-left-box">
 <div class="main-left-title">HyperspacePool</div>
 <div class="main-left-inner">
-
-<ul>
-<li>HyperspacePool is a community-supported mining pool for Space Cash (SPACE).</li>
-<li>No registration is required - use your wallet address as your username.</li>
-<li>Payouts are made automatically every <?= $payout_freq ?> for all balances above <b><?= $min_payout ?></b> SPACE, or <b><?= $min_sunday ?></b> SPACE on Sundays. Blocks are distributed proportionally using PROP among valid submitted shares.</li>
-
-<br/>
-
+  <p>We are a community-supported mining pool for <a href="https://hspace.app">Hyperspace</a>.</p>
+  <p>
+    -  <strong>Get paid what you deserve </strong> - Blocks are distributed using PROP with a 0% fee.<br>
+    -  <strong>ASIC support </strong> - All blake2b miners are supported. Use your Obelisk SC1s, Antminer A3s, S11/B52s, and more!<br>
+    -  <strong>Quick payouts </strong> - Payments are made every <?= $payout_freq ?> for all balances above <b><?= $min_payout ?></b> SPACE, or <b><?= $min_sunday ?></b> SPACE on Sundays.<br>
+    -  <strong>No registration </strong> - Use your wallet address as your username for easy payouts.<br>
+    -  <strong>No hidden fees </strong> - All payouts are free of charge.<br>
+    </p>
 </ul>
 </div></div>
 <br/>

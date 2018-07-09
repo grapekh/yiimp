@@ -24,10 +24,9 @@ function auto_page_refresh()
 	if(now_time > auto_start_time + auto_max_time)
 	{
 		$('#resume_update_button').show();
-		document.title = 'yiimp';
+		document.title = 'HyperspacePool - paused';
 	}
-	
+
 	else
 		setTimeout(auto_page_refresh, auto_delay);
 }
-

@@ -48,29 +48,24 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <div class="main-left-title">STRATUM SERVERS</div>
 <div class="main-left-inner">
 
-<ul>
 
-<li>
+<p>
 <b>US: </b><br/>
 <p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
 stratum+tcp://us.hyperspacepool.com:3333
 </p>
-</li>
+</p>
 
-<li>
+<p>
 <b>EU: </b><br/>
 <p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
 A european server will go live before the Hyperspace network launch!
 </p>
-</li>
+</p>
 
 
-<li>Make sure you specify a valid wallet address as your username. </li>
-<li>Passwords are not used by the server and can be empty or something arbitrary.</li>
+<p>Make sure you specify a valid wallet address as your username. Passwords are not used by the server and can be empty or something arbitrary.</p>
 
-<br>
-
-</ul>
 </div></div><br>
 
 <!--  -->
@@ -78,25 +73,16 @@ A european server will go live before the Hyperspace network launch!
 <div class="main-left-box">
 <div class="main-left-title">LINKS</div>
 <div class="main-left-inner">
-
-<ul>
-
-<!--<li><b>BitcoinTalk</b> - <a href='https://bitcointalk.org/index.php?topic=508786.0' target=_blank >https://bitcointalk.org/index.php?topic=508786.0</a></li>-->
-<!--<li><b>IRC</b> - <a href='http://webchat.freenode.net/?channels=#yiimp' target=_blank >http://webchat.freenode.net/?channels=#yiimp</a></li>-->
-
-<li><b>API</b> - <a href='/site/api'>http://<?= YAAMP_SITE_URL ?>/site/api</a></li>
-<li><b>Difficulty</b> - <a href='/site/diff'>http://<?= YAAMP_SITE_URL ?>/site/diff</a></li>
+<p>
+<b>API</b> - <a href='/site/api'>http://<?= YAAMP_SITE_URL ?>/site/api</a><br>
+<b>Difficulty</b> - <a href='/site/diff'>http://<?= YAAMP_SITE_URL ?>/site/diff</a><br>
 <?php if (YIIMP_PUBLIC_BENCHMARK): ?>
-<li><b>Benchmarks</b> - <a href='/site/benchmarks'>http://<?= YAAMP_SITE_URL ?>/site/benchmarks</a></li>
+<b>Benchmarks</b> - <a href='/site/benchmarks'>http://<?= YAAMP_SITE_URL ?>/site/benchmarks</a><br>
 <?php endif; ?>
 
 <?php if (YAAMP_ALLOW_EXCHANGE): ?>
-<li><b>Algo Switching</b> - <a href='/site/multialgo'>http://<?= YAAMP_SITE_URL ?>/site/multialgo</a></li>
+<b>Algo Switching</b> - <a href='/site/multialgo'>http://<?= YAAMP_SITE_URL ?>/site/multialgo</a><br>
 <?php endif; ?>
-
-<br>
-
-</ul>
 </div></div><br>
 
 <!--

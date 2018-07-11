@@ -109,11 +109,11 @@ $('#algo_select').change(function(event)
 <div class="main-left-title">Last 48 Hours</div>
 <div class="main-left-inner">
 
-<ul>
-<li>Average Hashrate: <b>{$hashrate1}h/s</b></li>
-<li>BTC Value: <b>$total1</b></li>
-<li>BTC/{$algo_unit}/d: <b>$btcmhday1</b></li>
-</ul>
+<p>
+Average Hashrate: <b>{$hashrate1}h/s</b><br>
+BTC Value: <b>$total1</b><br>
+BTC/{$algo_unit}/d: <b>$btcmhday1</b><br>
+</p>
 
 <br>
 <div id='graph_results_1' style='height: $height;'></div><br><br>
@@ -130,11 +130,11 @@ $('#algo_select').change(function(event)
 <div class="main-left-title">Last 7 Days</div>
 <div class="main-left-inner">
 
-<ul>
-<li>Average Hashrate: <b>{$hashrate2}h/s</b></li>
-<li>BTC Value: <b>$total2</b></li>
-<li>BTC/{$algo_unit}/d: <b>$btcmhday2</b></li>
-</ul>
+<p>
+Average Hashrate: <b>{$hashrate2}h/s</b><br>
+BTC Value: <b>$total2</b><br>
+BTC/{$algo_unit}/d: <b>$btcmhday2</b><br>
+</p>
 
 <br>
 <div id='graph_results_4' style='height: $height;'></div><br><br>
@@ -151,11 +151,11 @@ $('#algo_select').change(function(event)
 <div class="main-left-title">Last 30 Days</div>
 <div class="main-left-inner">
 
-<ul>
-<li>Average Hashrate: <b>{$hashrate3}h/s</b></li>
-<li>BTC Value: <b>$total3</b></li>
-<li>BTC/{$algo_unit}/d: <b>$btcmhday3</b></li>
-</ul>
+<p>
+Average Hashrate: <b>{$hashrate3}h/s</b><br>
+BTC Value: <b>$total3</b><br>
+BTC/{$algo_unit}/d: <b>$btcmhday3</b><br>
+</p>
 
 <br>
 <div id='graph_results_7' style='height: $height;'></div><br><br>
@@ -557,5 +557,3 @@ function graph_init_9(data)
 
 </script>
 end;
-
-

@@ -79,7 +79,7 @@ class db_coins extends CActiveRecord
 		dborun("DELETE FROM balanceuser WHERE userid IN $ids_query");
 		dborun("DELETE FROM hashuser WHERE userid IN $ids_query");
 		dborun("DELETE FROM shares WHERE userid IN $ids_query");
-		dborun("DELETE FROM workers WHERE userid IN $ids_query");
+		// dborun("DELETE FROM workers WHERE userid IN $ids_query");
 		dborun("DELETE FROM payouts WHERE account_id IN $ids_query");
 
 		dborun("DELETE FROM blocks WHERE coin_id=".$coin->id);
@@ -112,10 +112,41 @@ class db_coins extends CActiveRecord
 			$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
 			return CHtml::link($label, $url, $htmlOpts);
 		}
+		if($this->id == 6 && isset($params['txid'])) {
+						// BTC txid
+						$url = 'https://blockchain.info/tx/'.$params['txid'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
+		}
 		else if ($this->symbol == 'SC' && isset($params['txid'])) {
-			$url = 'https://siastats.info/navigator?search='.$params['txid'];
-			$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-			return CHtml::link($label, $url, $htmlOpts);
+						$url = 'https://siastats.info/navigator?search='.$params['txid'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
+		}
+		else if ($this->symbol == 'SC' && isset($params['hash'])) {
+						$url = 'https://siastats.info/navigator?search='.$params['hash'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
+		}
+		else if ($this->symbol == 'SCP' && isset($params['txid'])) {
+						$url = 'https://siastats.info/navigator?search='.$params['txid'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
+		}
+		else if ($this->symbol == 'SCP' && isset($params['hash'])) {
+						$url = 'https://siastats.info/navigator?search='.$params['hash'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
+		}
+		else if ($this->symbol == 'XSC' && isset($params['txid'])) {
+						$url = 'https://hyperstats.info/navigator?search='.$params['txid'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
+		}
+		else if ($this->symbol == 'XSC' && isset($params['hash'])) {
+						$url = 'https://hyperstats.info/navigator?search='.$params['txid'];
+						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
+						return CHtml::link($label, $url, $htmlOpts);
 		}
 		else if (YIIMP_PUBLIC_EXPLORER || $force || user()->getState('yaamp_admin')) {
 			$urlParams = array_merge(array('id'=>$this->id), $params);
@@ -127,4 +158,3 @@ class db_coins extends CActiveRecord
 	}
 
 }
-

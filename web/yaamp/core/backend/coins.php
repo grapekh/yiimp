@@ -22,7 +22,7 @@ function BackendCoinsUpdate()
 {
 	$debug = false;
 
-//	debuglog(__FUNCTION__);
+	// debuglog(__FUNCTION__);
 	$t1 = microtime(true);
 
 	$pool_rate = array();
@@ -32,7 +32,7 @@ function BackendCoinsUpdate()
 	$coins = getdbolist('db_coins', "installed");
 	foreach($coins as $coin)
 	{
-//		debuglog("doing $coin->name");
+		// debuglog("doing $coin->name");
 
 		$remote = new WalletRPC($coin);
 
@@ -175,7 +175,26 @@ function BackendCoinsUpdate()
 
 			else if ($coin->rpcencoding == 'SC')
 			{
-				$coin->reward = 300000 - $template['height'];
+							$coin->reward = 300000 - $template['height'];
+							if($coin->reward < 30000) {
+											$coin->reward = 30000;
+							}
+			}
+
+			else if ($coin->rpcencoding == 'SCP')
+			{
+							$coin->reward = 0.8*(360000 - $template['height']);
+							if($coin->reward < 40000) {
+											$coin->reward = 36000;
+							}
+			}
+
+			else if ($coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC')
+			{
+							$coin->reward = 0.9*(60000 - ($template['height']-3)*0.2);
+							if($coin->reward < 6000) {
+											$coin->reward = 6000;
+							}
 			}
 
 			else if(strcasecmp($remote->error, 'method not found') == 0)
@@ -252,7 +271,7 @@ function BackendCoinsUpdate()
 			$coin->last_network_found = time();
 		}
 
-		if ($coin->rpcencoding == 'SC') {
+                if ($coin->rpcencoding == 'SC'|| $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC'|| $coin->rpcencoding == 'SCP') {
 			$coin->version = $remote->getversion();
 		} else {
 			$coin->version = substr($info['version'], 0, 32);
@@ -316,7 +335,3 @@ function BackendCoinsUpdate()
 	$d1 = microtime(true) - $t1;
 	controller()->memcache->add_monitoring_function(__METHOD__, $d1);
 }
-
-
-
-

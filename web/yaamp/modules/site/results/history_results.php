@@ -89,20 +89,20 @@ foreach($list as $item)
 		$total3 = controller()->memcache->get_database_scalar("history_item3-$id-$algo-btc",
 			"SELECT SUM(earnings) as b FROM hashstats WHERE time>$t3 AND algo=:algo", array(':algo'=>$algo));
 	}
-
+/* fix 30 day
 	if ($res4['a'] == $res3['a'] || count($list) == 1) {
 		$res4['a'] = '-';
 		$total4 = controller()->memcache->get_database_scalar("history_item4-$id-$algo-btc",
 			"SELECT SUM(earnings) as b FROM hashstats WHERE time>$t4 AND algo=:algo", array(':algo'=>$algo));
 	}
-
+*/
 	$name = substr($coin->name, 0, 12);
 
 	echo '<tr class="ssrow">';
 
 	echo '<td width=18><img width=16 src="'.$coin->image.'"></td>';
 	echo '<td><b><a href="/site/block?id='.$id.'">'.$name.'</a></b></td>';
-	echo '<td class="symb">'.$coin->symbol.'</td>';
+	echo '<td class="symb">'.$coin->symbol_show.'</td>';
 
 	echo '<td align="right" style="font-size: .9em;">'.$res1['a'].'</td>';
 	echo '<td align="right" style="font-size: .9em;">'.$res2['a'].'</td>';
@@ -207,9 +207,3 @@ echo '</div>';
 
 echo '<br>';
 echo '</div></div><br>';
-
-
-
-
-
-

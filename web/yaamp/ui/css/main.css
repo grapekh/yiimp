@@ -7,13 +7,13 @@
 
 body
 {
-	font: normal 10pt Arial,Helvetica,sans-serif;
-	background-color: white;
-	color: #444;
-	text-align: left;
-	margin: 0;
-	padding: 0;
-	scroll: no;
+        font: normal 11pt Segoe UI;
+        background-color: #E0E0E0;
+        color: #444;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        scroll: no;
 }
 
 a, a:visited
@@ -44,12 +44,12 @@ h2
 
 hr
 {
-	display: block; 
+	display: block;
 	height: 1px;
-    border: 0; 
+    border: 0;
     border-top: 1px solid #e5e5e5;
 }
-    
+
 
 .page
 {
@@ -70,7 +70,7 @@ hr
 .page .headermenu img
 {
 	border-radius: 5px;
-	padding: 2px 0 0 0; 
+	padding: 2px 0 0 0;
 	height: 26px;
 }
 
@@ -84,41 +84,40 @@ hr
 
 .page .tabmenu-out
 {
-	position: fixed;
-	top: 0px;
-	right: 0px;
-	left: 0px;
-	z-index: 8;
-	height: 40px;
-	color: #aaa;
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        z-index: 8;
+        height: 40px;
+        color: #aaa;
 
-	background-image: url(/images/base/top_header.png);
-	background-repeat: repeat-x;
-	
-	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
-	box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+        background-image: url(/images/base/top_header.png);
+        background-repeat: repeat-x;
+
+        -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
 }
 
 .page .tabmenu-inner
 {
-	font-size: 1.1em;
-	font-weight: bold;
-	padding: 10px;
+        font-size: 1.0em;
+        font-weight: bold;
+        padding:6px;
+    background-color: #666;
 }
 
 .page .tabmenu-inner a
 {
-	text-decoration: none;
-	padding: 10px;
-	color: #aaa;
+        text-decoration: none;
+        padding: 6px;
+        color: white;
+        vertical-align: top;
 }
 
 .page .tabmenu-inner .selected
 {
-	color: #eee;
-	border: 1px solid #181818;
-	background-image: url(/images/base/top_header_selected.png);
-	background-repeat: repeat-x;
+        color: #e0d3e8;
 }
 
 /* ---------------------------------------------- */
@@ -149,7 +148,6 @@ hr
 	font-weight: bold;
 	text-align: center;
 	padding: 10px;
-	background-color: #ccc;
 	color: #333;
 }
 
@@ -224,4 +222,3 @@ hr
 {
 	color: blue;
 }
-

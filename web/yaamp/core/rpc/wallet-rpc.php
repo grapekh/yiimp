@@ -46,7 +46,7 @@ class WalletRPC {
 				break;
 		 case 'SCP':
 				$this->type = 'Siacoin';
-				$this->rpc = new SiaRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
+				$this->rpc = new SiaPrimeRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
 				break;
 		 case 'XSC':
 					$this->type = 'Hyperspace';

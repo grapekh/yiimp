@@ -133,15 +133,12 @@ function BackendSharesNew() {
 			if (!$earning->save())
 				debuglog(__FUNCTION__.": Unable to insert earning!");
 
-<<<<<<< HEAD
 	$delay = time() - 24*60*60; // delete SCP shares older than a day
 	$sqlCond = "time < $delay AND status=1";
-=======
 			// record the user's last earning time
 			$user->last_earning = time();
 			$user->save();
 		}
->>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 
 		$delay = time() - 24*60*60; // delete SC shares older than a day
 		$sqlCond = "time < $delay AND status=1";
@@ -185,11 +182,7 @@ function BackendBlockFind1($coinid = NULL)
 		$block = $remote->getblock($db_block->blockhash);
 		// debuglog("block is: {$block->blockhash}, height: {$db_block->height}, parentid: {$block->parentid}");
 		$block_age = time() - $db_block->time;
-<<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP') {
-=======
-		if($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') {
->>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 			if (!$block || !isset($block["parentid"]) || !isset($block["minerpayouts"])) {
 				$db_block->amount = 0;
 				$db_block->save();
@@ -283,11 +276,7 @@ function BackendBlocksUpdate($coinid = NULL)
 		}
 
 		$remote = new WalletRPC($coin);
-<<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP' && $block->category == 'immature') {
-=======
-		if(($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') && $block->category == 'immature') {
->>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 			// checkout is it orphan by getblocks
 			$remote_block = $remote->getblock($block->blockhash);
 			if (!$remote_block || !isset($remote_block["parentid"]) || !isset($remote_block["minerpayouts"])) {
@@ -310,13 +299,8 @@ function BackendBlocksUpdate($coinid = NULL)
 			continue;
 		}
 
-<<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP' && $block->category == 'orphan') {
 			if ($coin->enable && (time() - $block->time) < 3600*24) {
-=======
-		if(($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') && $block->category == 'orphan') {
-			if ($coin->enable && (time() - $block->time) < 3600*24) {
->>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 				$blockext = $remote->getblock($block->blockhash);
 				if (!$blockext || !isset($blockext["parentid"]) || !isset($blockext["minerpayouts"])) {
 					continue; // keep orphan

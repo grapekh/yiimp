@@ -28,11 +28,11 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <!--  -->
 
 <div class="main-left-box">
-<div class="main-left-title">SIFRMINE</div>
+<div class="main-left-title">SiaPrimeStats.com</div>
 <div class="main-left-inner">
-  <p>We are a community-supported mining pool for <a href="https://hspace.app">Hyperspace</a> and Sia Prime.</p>
+  <p>We are a community-supported mining pool for <a href="https://SiaPrime.net">SiaPrime</a> </p>
   <p>
-   -  <strong>Get paid what you deserve </strong> - PPS payments are made with a low 1% fee.<br>
+   -  <strong>Get paid what you deserve </strong> - PPS payments are made with a low 3% fee.<br>
    -  <strong>ASIC support </strong> - Use your Obelisks, A3s, S11, B52s, and more!<br>
    -  <strong>No registration </strong> - Use your wallet address as your username for easy payouts.<br>
    -  <strong>No hidden fees </strong> - All payouts are free of charge.<br>
@@ -40,9 +40,9 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
     </p>
 <p>
 <b>How PPS Payouts work: </b><br>
-- Every valid share you submit to SIFRMINE is instantly credited to your address.
+- Every valid share you submit to SiaPrimeStats.com is instantly credited to your address.
 <br>- We will always pay out your earnings, even in the case of orphaned blocks.
-<br>- We charge a small 1% fee to provide stable payouts, absorb the risk of bad luck, and account for mining variance.
+<br>- We charge a small 3% fee to provide stable payouts, absorb the risk of bad luck, and account for mining variance.
 </p>
 </div></div>
 <br/>
@@ -52,10 +52,9 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <div class="main-left-box">
 <div class="main-left-title">Stratum Setup Guide</div>
 <div class="main-left-inner">
-<p>Please note: do not mine to the same address on Sia Prime and Hyperspace. SIFRMINE only supports one coin per address.</p>
+<p>SiaPrimeStats.com - SiaPrime Mining Pool</p>
 <p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
-Hyperspace URL: stratum+tcp://sifrmine.com:6666
-<br>Sia Prime URL:  stratum+tcp://sifrmine.com:3355
+<br>SiaPrime URL:  stratum+tcp://SiaPrimeStats.com:3355
 </p>
 <p>When setting up your URL, verify you are using the correct port for your coin.</p>
 <p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>

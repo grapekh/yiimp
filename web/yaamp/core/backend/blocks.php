@@ -312,7 +312,7 @@ function BackendBlocksUpdate($coinid = NULL)
 
 <<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP' && $block->category == 'orphan') {
-			if ($coin->enable && (time() - $block->time) < 3600) {
+			if ($coin->enable && (time() - $block->time) < 3600*24) {
 =======
 		if(($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') && $block->category == 'orphan') {
 			if ($coin->enable && (time() - $block->time) < 3600*24) {

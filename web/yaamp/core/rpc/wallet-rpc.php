@@ -44,6 +44,18 @@ class WalletRPC {
 				$this->type = 'SiaPrimecoin';
 				$this->rpc = new SiaPrimeRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
 				break;
+		 case 'SCP':
+				$this->type = 'Siacoin';
+				$this->rpc = new SiaPrimeRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
+				break;
+		 case 'XSC':
+					$this->type = 'Hyperspace';
+					$this->rpc = new HyperspaceRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
+					break;
+			case 'SPACE':
+				$this->type = 'Hyperspace';
+				$this->rpc = new HyperspaceRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
+				break;
 			default:
 				$this->type = 'Bitcoin';
 				$this->rpc = new Bitcoin($coin->rpcuser, $coin->rpcpasswd, $coin->rpchost, $coin->rpcport, $url);
@@ -450,6 +462,25 @@ class WalletRPC {
 					$txs[] = $tx;
 				}
 				return $txs;
+			case 'sendtoaddress':
+				$address = arraySafeVal($params, 0);
+				$amount = arraySafeVal($params, 1);
+				$value = $amount_to_hasting($amount);
+				$destinations = array();
+				$destination = array(
+					"value" => $value,
+					"unlockhash" => $address
+				);
+				$destinations[] = (object) $destination;
+				$outputs = json_encode($destinations);
+				debuglog("send many 2:" . $outputs);
+				$res = $this->rpc->rpcpost("/wallet/siacoins?outputs={$outputs}");
+				$this->error = $this->rpc->error;
+				debuglog("send many 3:" . json_encode($res));
+				if ($res && isset($res['transactionids'])) {
+					return end($res['transactionids']); // assume last is the real payout
+				}
+				return $res;
 			case 'sendmany':
 				$destinations = array();
 				$addresses = arraySafeVal($params, 0);
@@ -472,6 +503,143 @@ class WalletRPC {
 			case 'getbalance':
 				$wallet_info = $this->rpc->rpcget("/wallet");
 				$hastings = $wallet_info['confirmedsiacoinbalance'];
+				// TODO convert hastings to double
+				return $hasting_to_amount($hastings);
+				break;
+			case 'getblocktemplate':
+				$info = $this->rpc->rpcget('/consensus');
+				$this->error = $this->rpc->error;
+				return $info;
+				break;
+			case 'getversion':
+				$ret = $this->rpc->rpcget('/daemon/version');
+				$this->error = $this->rpc->error;
+				return $ret['version'];
+				break;
+			case 'getpeerinfo':
+				$info = $this->rpc->rpcget('/gateway');
+				$this->error = $this->rpc->error;
+				$btc_peer = function ($sia_peer)  {
+					return array(
+						"addr" => $sia_peer["netaddress"],
+						"version" => $sia_peer["version"],
+						"subver" => $sia_peer["version"],
+					);
+				};
+				return array_map($btc_peer, $info['peers']);
+				break;
+			}
+		}
+
+		// Hyperspace
+		else if ($this->type == 'Hyperspace')
+		{
+			$hasting_to_amount = function ($hasting) {
+				return doubleval(substr($hasting, 0, -16)) / 1e8;
+			};
+
+			$amount_to_hasting = function ($amount) {
+				$amount = $amount * 1e8;
+				return sprintf("%.0f", $amount) . str_repeat('0', 16);
+			};
+
+			switch ($method) {
+			case 'getinfo':
+				$info = $this->rpc->rpcget('/consensus');
+				$info['blocks'] = $info['height'];
+				$wallet_info = $this->rpc->rpcget('/wallet');
+				$info['balance'] = $hasting_to_amount($wallet_info['confirmedspacecashbalance']);
+				// debuglog("balance " . json_encode($wallet_info));
+				$this->error = $this->rpc->error;
+				return $info;
+			case 'getblock':
+				$hash = arraySafeVal($params, 0);
+				$block = $this->rpc->rpcget("/consensus/blocks?id={$hash}");
+				$block['blockhash'] = $hash;
+				if ($block && isset($block["minerpayouts"]) && isset($block["minerpayouts"][0]) && isset($block["minerpayouts"][0]['value'])) {
+					$block["minerpayouts"][0]['value'] = $hasting_to_amount($block["minerpayouts"][0]['value']);
+				}
+				$this->error = $this->rpc->error;
+				return $block;
+			case 'getdifficulty':
+				$info = $this->rpc->rpcget('/consensus');
+				$this->error = $this->rpc->error;
+				return $info['difficulty'];
+			case 'listsinceblock':
+				$txs = array();
+				return $txs;
+			case 'listtransactions':
+				$maxrows = arraySafeVal($params, 1);
+				// TODO: only fetch 1 block for now
+				$tx_results = $this->rpc->rpcget("/wallet/transactions?depth=1");
+				$this->error = $this->rpc->error;
+				$txs = array();
+				foreach ($tx_results["confirmedtransactions"] as $idx=>$tx_result) {
+					if($idx >= $maxrows) {
+						break;
+					}
+					$amount = 0;
+					foreach ($tx_result["outputs"] as $output_idx=>$output) {
+						$amount += $hasting_to_amount($output["value"]);
+					}
+					$tx = array(
+						"time" => $tx_result["confirmationtimestamp"],
+						"txid" => $tx_result["transactionid"],
+						"height" => $tx_result["confirmationheight"],
+						"amount" => $amount,
+					);
+
+					// TODO: just judge by last outputs address now
+					if(end($tx_result["outputs"])['walletaddress']) {
+						$tx['category'] = 'receive';
+					} else {
+						$tx['category'] = 'send';
+					}
+
+					$txs[] = $tx;
+				}
+				return $txs;
+			case 'sendtoaddress':
+				$address = arraySafeVal($params, 0);
+				$amount = arraySafeVal($params, 1);
+				$value = $amount_to_hasting($amount);
+				$destinations = array();
+				$destination = array(
+					"value" => $value,
+					"unlockhash" => $address
+				);
+				$destinations[] = (object) $destination;
+				$outputs = json_encode($destinations);
+				debuglog("send many 2:" . $outputs);
+				$res = $this->rpc->rpcpost("/wallet/spacecash?outputs={$outputs}");
+				$this->error = $this->rpc->error;
+				debuglog("send many 3:" . json_encode($res));
+				if ($res && isset($res['transactionids'])) {
+					return end($res['transactionids']); // assume last is the real payout
+				}
+				return $res;
+			case 'sendmany':
+				$destinations = array();
+				$addresses = arraySafeVal($params, 0);
+				debuglog("send many 1:" . json_encode($addresses));
+				foreach ($addresses as $addr => $amount) {
+					// convert back from full SCs to hastings
+					$value = $amount_to_hasting($amount);
+					$data = array("value" => $value, "unlockhash"=>$addr);
+					$destinations[] = (object) $data;
+				}
+				$outputs = json_encode($destinations);
+				debuglog("send many 2:" . $outputs);
+				$res = $this->rpc->rpcpost("/wallet/spacecash?outputs={$outputs}");
+				$this->error = $this->rpc->error;
+				debuglog("send many 3:" . json_encode($res));
+				if ($res && isset($res['transactionids'])) {
+					return end($res['transactionids']); // assume last is the real payout
+				}
+				return $res;
+			case 'getbalance':
+				$wallet_info = $this->rpc->rpcget("/wallet");
+				$hastings = $wallet_info['confirmedspacecashbalance'];
 				// TODO convert hastings to double
 				return $hasting_to_amount($hastings);
 				break;

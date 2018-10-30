@@ -82,57 +82,81 @@ function BackendBlockNew($coin, $db_block)
 
 function BackendSharesNew() {
 	debuglog(__METHOD__);
+	$start_time = time();
+	$coinids = array(1316, 1317);
 
-	$coin = getdbo('db_coins', 1316);
-	$target = yaamp_hashrate_constant($coin->algo);
-	// caculate shares group by user, add new earnings for them
-	$sqlCond = "valid = 1 AND status=0";
-	// TODO: seems difficulty we give miner is different from the one that Sia api use for block
-	$list = dbolist("SELECT userid, SUM(share_reward) AS total FROM shares WHERE $sqlCond AND algo=:algo GROUP BY userid",
-	array(':algo'=>$coin->algo));
+	foreach($coinids as $coinid) {
+		$coin = getdbo('db_coins', $coinid);
+		$target = yaamp_hashrate_constant($coin->algo);
+		// caculate shares group by user, add new earnings for them
+		$sqlCond = "valid = 1 AND status=0";
+		// TODO: seems difficulty we give miner is different from the one that Sia api use for block
+		$list = dbolist("SELECT userid, SUM(share_reward) AS total, max(id) as maxid FROM shares WHERE $sqlCond AND coinid=:coinid GROUP BY userid",
+			array(':coinid'=>$coinid));
 
-	foreach($list as $item)
-	{
-		$amount = $item['total'];
-		$user = getdbo('db_accounts', $item['userid']);
-		if(!$user) continue;
-
-		if(!$user->no_fees) $amount = take_yaamp_fee($amount, $coin->algo);
-		if(!empty($user->donation)) {
-			$amount = take_yaamp_fee($amount, $coin->algo, $user->donation);
-			if ($amount <= 0) continue;
+		foreach($list as $item) {
+			if(empty($max_id)) {
+				$max_id = $item['maxid'];
+				continue;
+			}
+			if($max_id < $item['maxid']) {
+				$max_id = $item['maxid'];
+			}
 		}
 
-		$earning = new db_earnings;
-		$earning->userid = $user->id;
-		$earning->coinid = $coin->id;
-		$earning->create_time = time();
-		$earning->amount = $amount;
-		$earning->price = $coin->price;
-		$earning->mature_time = time();
-		$earning->status = 1;
+		if (!empty($list)) {
+			dborun("UPDATE shares SET status=1 WHERE $sqlCond AND coinid=:coinid AND id<=:id",
+			array(':coinid'=>$coinid, ':id'=>$max_id));
+		}
 
-		if (!$earning->save())
-			debuglog(__FUNCTION__.": Unable to insert earning!");
+		foreach($list as $item)
+		{
+			$amount = $item['total'];
+			$user = getdbo('db_accounts', $item['userid']);
+			if(!$user) continue;
 
-		// record the user's last earning time
-		$user->last_earning = time();
-		$user->save();
-		dborun("UPDATE shares SET status=1 WHERE $sqlCond AND userid=:userid", array('userid' => $item['userid']));
-	}
+			if(!$user->no_fees) $amount = take_yaamp_fee($amount, $coin->algo);
+			if(!empty($user->donation)) {
+				$amount = take_yaamp_fee($amount, $coin->algo, $user->donation);
+				if ($amount <= 0) continue;
+			}
 
+			$earning = new db_earnings;
+			$earning->userid = $user->id;
+			$earning->coinid = $coin->id;
+			$earning->create_time = time();
+			$earning->amount = $amount;
+			$earning->price = $coin->price;
+			$earning->mature_time = time();
+			$earning->status = 1;
+
+			if (!$earning->save())
+				debuglog(__FUNCTION__.": Unable to insert earning!");
+
+<<<<<<< HEAD
 	$delay = time() - 24*60*60; // delete SCP shares older than a day
 	$sqlCond = "time < $delay AND status=1";
+=======
+			// record the user's last earning time
+			$user->last_earning = time();
+			$user->save();
+		}
+>>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 
-	try {
-		dborun("DELETE FROM shares WHERE algo=:algo AND $sqlCond", array(':algo'=>$coin->algo));
-	} catch (CDbException $e) {
-		debuglog("unable to delete shares $sqlCond retrying...");
-		sleep(1);
-		dborun("DELETE FROM shares WHERE algo=:algo AND $sqlCond", array(':algo'=>$coin->algo));
-		// [errorInfo] => array(0 => 'HY000', 1 => 1205, 2 => 'Lock wait timeout exceeded; try restarting transaction')
-		// [*:message] => 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY000]: General error: 1205 Lock wait timeout exceeded; try restarting transaction'
+		$delay = time() - 24*60*60; // delete SC shares older than a day
+		$sqlCond = "time < $delay AND status=1";
+
+		try {
+			dborun("DELETE FROM shares WHERE coinid=:coinid AND $sqlCond", array(':coinid'=>$coinid));
+		} catch (CDbException $e) {
+			debuglog("unable to delete shares $sqlCond retrying...");
+			sleep(1);
+			dborun("DELETE FROM shares WHERE coinid=:coinid AND $sqlCond", array(':coinid'=>$coinid));
+			// [errorInfo] => array(0 => 'HY000', 1 => 1205, 2 => 'Lock wait timeout exceeded; try restarting transaction')
+			// [*:message] => 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY000]: General error: 1205 Lock wait timeout exceeded; try restarting transaction'
+		}
 	}
+	debuglog("time after all: ".(time() -  $start_time));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +185,11 @@ function BackendBlockFind1($coinid = NULL)
 		$block = $remote->getblock($db_block->blockhash);
 		// debuglog("block is: {$block->blockhash}, height: {$db_block->height}, parentid: {$block->parentid}");
 		$block_age = time() - $db_block->time;
+<<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP') {
+=======
+		if($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') {
+>>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 			if (!$block || !isset($block["parentid"]) || !isset($block["minerpayouts"])) {
 				$db_block->amount = 0;
 				$db_block->save();
@@ -255,7 +283,11 @@ function BackendBlocksUpdate($coinid = NULL)
 		}
 
 		$remote = new WalletRPC($coin);
+<<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP' && $block->category == 'immature') {
+=======
+		if(($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') && $block->category == 'immature') {
+>>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 			// checkout is it orphan by getblocks
 			$remote_block = $remote->getblock($block->blockhash);
 			if (!$remote_block || !isset($remote_block["parentid"]) || !isset($remote_block["minerpayouts"])) {
@@ -278,8 +310,13 @@ function BackendBlocksUpdate($coinid = NULL)
 			continue;
 		}
 
+<<<<<<< HEAD
 		if($coin->rpcencoding == 'SCP' && $block->category == 'orphan') {
 			if ($coin->enable && (time() - $block->time) < 3600) {
+=======
+		if(($coin->rpcencoding == 'SC' || $coin->rpcencoding == 'SPACE' || $coin->rpcencoding == 'XSC' || $coin->rpcencoding == 'SCP') && $block->category == 'orphan') {
+			if ($coin->enable && (time() - $block->time) < 3600*24) {
+>>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 				$blockext = $remote->getblock($block->blockhash);
 				if (!$blockext || !isset($blockext["parentid"]) || !isset($blockext["minerpayouts"])) {
 					continue; // keep orphan
@@ -566,4 +603,3 @@ function MonitorBTC()
 		if(!$b) debuglog('error sending email');
 	}
 }
-

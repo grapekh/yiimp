@@ -82,7 +82,7 @@ function showPageHeader()
 {
 	echo '<div class="tabmenu-out">';
 	echo '<div class="tabmenu-inner">';
-
+  echo '<a href="/"><img src="/images/ui/logo.png" width=25px height=25px"></a>';
 	echo '&nbsp;&nbsp;<a href="/">'.YAAMP_SITE_NAME.'</a>';
 
 	$action = controller()->action->id;
@@ -127,7 +127,7 @@ function showPageHeader()
 	$mining = getdbosql('db_mining');
 	$nextpayment = date('H:i T', $mining->last_payout+YAAMP_PAYMENTS_FREQ);
 
-	echo '<span style="font-size: .8em;">Next Payout: '.$nextpayment.'</span>';
+	echo '<span style="font-size: .8em;color:white">Next Payout: '.$nextpayment.'</span>';
 
 	echo "</div>";
 	echo "</div>";

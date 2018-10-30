@@ -1,6 +1,6 @@
 <?php
 
-ini_set('date.timezone', 'UTC');
+ini_set('date.timezone', 'EST');
 
 define('YAAMP_LOGS', '/var/www/web/log');
 define('YAAMP_HTDOCS', '/var/www/web');
@@ -19,12 +19,12 @@ define('YAAMP_LIMIT_ESTIMATE', false);
 
 define('YAAMP_USE_PPS', true);
 
-define('YAAMP_FEES_MINING', 0.5);
+define('YAAMP_FEES_MINING', 3.0);
 define('YAAMP_FEES_EXCHANGE', 2);
 define('YAAMP_FEES_RENTING', 2);
 define('YAAMP_TXFEE_RENTING_WD', 0.002);
 define('YAAMP_PAYMENTS_FREQ', 3*60*60);
-define('YAAMP_PAYMENTS_MINI', 0.001);
+define('YAAMP_PAYMENTS_MINI', 500.00);
 
 define('YAAMP_ALLOW_EXCHANGE', false);
 define('YIIMP_PUBLIC_EXPLORER', true);
@@ -75,7 +75,7 @@ define('EXCH_AUTO_WITHDRAW', 0.3);
 define('NICEHASH_API_KEY','521c254d-8cc7-4319-83d2-ac6c604b5b49');
 define('NICEHASH_API_ID','9205');
 define('NICEHASH_DEPOSIT','3J9tapPoFCtouAZH7Th8HAPsD8aoykEHzk');
-define('NICEHASH_DEPOSIT_AMOUNT','0.01');
+define('NICEHASH_DEPOSIT_AMOUNT','0.0');
 
 
 $cold_wallet_table = array(

@@ -40,9 +40,9 @@ class WalletRPC {
 				$this->rpc_wallet = new CryptoRPC("127.0.0.1", $coin->rpcport, $coin->rpcuser, $coin->rpcpasswd);
 				$this->coin = $coin;
 				break;
-			case 'SC':
-				$this->type = 'Siacoin';
-				$this->rpc = new SiaRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
+			case 'SCP':
+				$this->type = 'SiaPrimecoin';
+				$this->rpc = new SiaPrimeRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
 				break;
 			default:
 				$this->type = 'Bitcoin';
@@ -455,7 +455,7 @@ class WalletRPC {
 				$addresses = arraySafeVal($params, 0);
 				debuglog("send many 1:" . json_encode($addresses));
 				foreach ($addresses as $addr => $amount) {
-					// convert back from full SCs to hastings
+					// convert back from full SCPs to hastings
 					$value = $amount_to_hasting($amount);
 					$data = array("value" => $value, "unlockhash"=>$addr);
 					$destinations[] = (object) $data;

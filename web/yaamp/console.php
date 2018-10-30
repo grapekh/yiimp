@@ -3,7 +3,7 @@
 $_SERVER["HTTP_HOST"] = YAAMP_SITE_URL;
 
 // required in PHP 5.4
-date_default_timezone_set('Europe/Paris');
+date_default_timezone_set('New York');
 
 return array(
 	'name'=>YAAMP_SITE_URL,

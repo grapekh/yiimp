@@ -121,7 +121,7 @@ function BackendSharesNew() {
 		dborun("UPDATE shares SET status=1 WHERE $sqlCond AND userid=:userid", array('userid' => $item['userid']));
 	}
 
-	$delay = time() - 24*60*60; // delete SC shares older than a day
+	$delay = time() - 24*60*60; // delete SCP shares older than a day
 	$sqlCond = "time < $delay AND status=1";
 
 	try {
@@ -161,7 +161,7 @@ function BackendBlockFind1($coinid = NULL)
 		$block = $remote->getblock($db_block->blockhash);
 		// debuglog("block is: {$block->blockhash}, height: {$db_block->height}, parentid: {$block->parentid}");
 		$block_age = time() - $db_block->time;
-		if($coin->rpcencoding == 'SC') {
+		if($coin->rpcencoding == 'SCP') {
 			if (!$block || !isset($block["parentid"]) || !isset($block["minerpayouts"])) {
 				$db_block->amount = 0;
 				$db_block->save();
@@ -255,7 +255,7 @@ function BackendBlocksUpdate($coinid = NULL)
 		}
 
 		$remote = new WalletRPC($coin);
-		if($coin->rpcencoding == 'SC' && $block->category == 'immature') {
+		if($coin->rpcencoding == 'SCP' && $block->category == 'immature') {
 			// checkout is it orphan by getblocks
 			$remote_block = $remote->getblock($block->blockhash);
 			if (!$remote_block || !isset($remote_block["parentid"]) || !isset($remote_block["minerpayouts"])) {
@@ -278,7 +278,7 @@ function BackendBlocksUpdate($coinid = NULL)
 			continue;
 		}
 
-		if($coin->rpcencoding == 'SC' && $block->category == 'orphan') {
+		if($coin->rpcencoding == 'SCP' && $block->category == 'orphan') {
 			if ($coin->enable && (time() - $block->time) < 3600) {
 				$blockext = $remote->getblock($block->blockhash);
 				if (!$blockext || !isset($blockext["parentid"]) || !isset($blockext["minerpayouts"])) {

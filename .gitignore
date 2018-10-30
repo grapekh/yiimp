@@ -25,3 +25,4 @@ web/assets/
 *.xz
 .idea/*
 web/yaamp/.idea/
+.vs

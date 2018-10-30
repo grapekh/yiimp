@@ -15,8 +15,8 @@ echo <<<END
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<meta name="description" content="Space Cash mining pool for Hyperspace">
-<meta name="keywords" content="anonymous,mining,pool,maxcoin,bitcoin,altcoin,auto,switch,exchange,profit,decred,siacoin,space,cash,blake2b,a3,s11,sc1,obelisk,baikal">
+<meta name="description" content="SiaPrimecoin mining pool">
+<meta name="keywords" content="anonymous,mining,pool,maxcoin,bitcoin,altcoin,auto,switch,exchange,profit,decred,siacoin,siaprimecoin,sc,scp,space,cash,blake2b,a3,s11,sc1,obelisk,baikal">
 
 END;
 
@@ -95,7 +95,7 @@ function showPageHeader()
 	showItemHeader(controller()->id=='stats', '/stats', 'Graphs');
 	showItemHeader($action=='miners', '/site/miners', 'Miners');
 	if (YIIMP_PUBLIC_EXPLORER)
-		showItemHeader(false, 'https://siastats.info/navigator', 'Explorer');
+		showItemHeader(false, 'https://nav.siaprimestats.com/navigator', 'Explorer');
 
 	if (YIIMP_PUBLIC_BENCHMARK)
 		showItemHeader(controller()->id=='bench', '/bench', 'Benchs');
@@ -139,7 +139,7 @@ function showPageFooter()
 	$year = date("Y", time());
 
 	echo "<p>&copy; $year ".YAAMP_SITE_NAME.' - '.
-		'<a href="https://github.com/ToastPool">Open source Project</a></p>';
+		'<a href="https://github.com/420coupe">Open source Project</a></p>';
 
 	echo '</div><!-- footer -->';
 }

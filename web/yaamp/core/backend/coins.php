@@ -173,9 +173,12 @@ function BackendCoinsUpdate()
 				$coin->auto_ready = ($coin->connections > 0);
 			}
 
-			else if ($coin->rpcencoding == 'SC')
+			else if ($coin->rpcencoding == 'SCP')
 			{
-				$coin->reward = 300000 - $template['height'];
+				$coin->reward = 0.8*(360000 - $template['height']);
+                                if($coin->reward < 50000) {
+                                        $coin->reward = 50000;
+                                }
 			}
 
 			else if(strcasecmp($remote->error, 'method not found') == 0)
@@ -252,7 +255,7 @@ function BackendCoinsUpdate()
 			$coin->last_network_found = time();
 		}
 
-		if ($coin->rpcencoding == 'SC') {
+		if ($coin->rpcencoding == 'SCP') {
 			$coin->version = $remote->getversion();
 		} else {
 			$coin->version = substr($info['version'], 0, 32);

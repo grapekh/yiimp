@@ -1,6 +1,6 @@
 <?php
 
-class SiaRPC
+class SiaPrimeRPC
 {
 	private $password;
 
@@ -16,7 +16,7 @@ class SiaRPC
 
 	private $id = 0;
 
-	function __construct($host='localhost', $port=9980, $password='')
+	function __construct($host='localhost', $port=4280, $password='')
 	{
 		$this->proto    = 'http';
 		$this->host     = $host;
@@ -34,7 +34,7 @@ class SiaRPC
 			CURLOPT_MAXREDIRS      => 10,
 			CURLOPT_HTTPHEADER     => array(
 				'Content-Type: application/json',
-				'User-Agent: Sia-Agent',
+				'User-Agent: SiaPrime-Agent',
 			),
 		);
 		curl_setopt_array($curl, $options);

@@ -112,48 +112,10 @@ class db_coins extends CActiveRecord
 			$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
 			return CHtml::link($label, $url, $htmlOpts);
 		}
-<<<<<<< HEAD
 		else if ($this->symbol == 'SCP' && isset($params['txid'])) {
 			$url = 'https://nav.siaprimestats.com/navigator?search='.$params['txid'];
 			$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
 			return CHtml::link($label, $url, $htmlOpts);
-=======
-		if($this->id == 6 && isset($params['txid'])) {
-						// BTC txid
-						$url = 'https://blockchain.info/tx/'.$params['txid'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
-		}
-		else if ($this->symbol == 'SC' && isset($params['txid'])) {
-						$url = 'https://siastats.info/navigator?search='.$params['txid'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
-		}
-		else if ($this->symbol == 'SC' && isset($params['hash'])) {
-						$url = 'https://siastats.info/navigator?search='.$params['hash'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
-		}
-		else if ($this->symbol == 'SCP' && isset($params['txid'])) {
-						$url = 'https://siastats.info/navigator?search='.$params['txid'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
-		}
-		else if ($this->symbol == 'SCP' && isset($params['hash'])) {
-						$url = 'https://siastats.info/navigator?search='.$params['hash'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
-		}
-		else if ($this->symbol == 'XSC' && isset($params['txid'])) {
-						$url = 'https://hyperstats.info/navigator?search='.$params['txid'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
-		}
-		else if ($this->symbol == 'XSC' && isset($params['hash'])) {
-						$url = 'https://hyperstats.info/navigator?search='.$params['txid'];
-						$htmlOpts = array_merge(array('target'=>'_blank'), $htmlOptions);
-						return CHtml::link($label, $url, $htmlOpts);
->>>>>>> 507632959f53264c2ea8218809ac5dcf74b35f38
 		}
 		else if (YIIMP_PUBLIC_EXPLORER || $force || user()->getState('yaamp_admin')) {
 			$urlParams = array_merge(array('id'=>$this->id), $params);

@@ -90,7 +90,7 @@ function BackendSharesNew() {
 		$target = yaamp_hashrate_constant($coin->algo);
 		// caculate shares group by user, add new earnings for them
 		$sqlCond = "valid = 1 AND status=0";
-		// TODO: seems difficulty we give miner is different from the one that Sia api use for block
+		// TODO: seems difficulty we give miner is different from the one that SiaPrime api use for block
 		$list = dbolist("SELECT userid, SUM(share_reward) AS total, max(id) as maxid FROM shares WHERE $sqlCond AND coinid=:coinid GROUP BY userid",
 			array(':coinid'=>$coinid));
 
@@ -140,7 +140,7 @@ function BackendSharesNew() {
 			$user->save();
 		}
 
-		$delay = time() - 24*60*60; // delete SC shares older than a day
+		$delay = time() - 24*60*60; // delete SCP shares older than a day
 		$sqlCond = "time < $delay AND status=1";
 
 		try {

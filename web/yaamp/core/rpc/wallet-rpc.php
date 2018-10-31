@@ -411,7 +411,7 @@ class WalletRPC {
 				$info = $this->rpc->rpcget('/consensus');
 				$info['blocks'] = $info['height'];
 				$wallet_info = $this->rpc->rpcget('/wallet');
-				$info['balance'] = $hasting_to_amount($wallet_info['confirmedsiaprimecoinbalance']);
+				$info['balance'] = $hasting_to_amount($wallet_info['confirmedsiacoinbalance']);
 				// debuglog("balance " . json_encode($wallet_info));
 				$this->error = $this->rpc->error;
 				return $info;
@@ -474,7 +474,7 @@ class WalletRPC {
 				$destinations[] = (object) $destination;
 				$outputs = json_encode($destinations);
 				debuglog("send many 2:" . $outputs);
-				$res = $this->rpc->rpcpost("/wallet/siaprimecoins?outputs={$outputs}");
+				$res = $this->rpc->rpcpost("/wallet/siacoins?outputs={$outputs}");
 				$this->error = $this->rpc->error;
 				debuglog("send many 3:" . json_encode($res));
 				if ($res && isset($res['transactionids'])) {
@@ -493,7 +493,7 @@ class WalletRPC {
 				}
 				$outputs = json_encode($destinations);
 				debuglog("send many 2:" . $outputs);
-				$res = $this->rpc->rpcpost("/wallet/siaprimecoins?outputs={$outputs}");
+				$res = $this->rpc->rpcpost("/wallet/siacoins?outputs={$outputs}");
 				$this->error = $this->rpc->error;
 				debuglog("send many 3:" . json_encode($res));
 				if ($res && isset($res['transactionids'])) {
@@ -502,7 +502,7 @@ class WalletRPC {
 				return $res;
 			case 'getbalance':
 				$wallet_info = $this->rpc->rpcget("/wallet");
-				$hastings = $wallet_info['confirmedsiaprimecoinbalance'];
+				$hastings = $wallet_info['confirmedsiacoinbalance'];
 				// TODO convert hastings to double
 				return $hasting_to_amount($hastings);
 				break;

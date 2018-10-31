@@ -32,17 +32,17 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <div class="main-left-inner">
   <p>We are a community-supported mining pool for <a href="https://SiaPrime.net">SiaPrime</a> </p>
   <p>
-   -  <strong>Get paid what you deserve </strong> - PPS payments are made with a low 3% fee.<br>
+   -  <strong>Get paid what you deserve </strong> - PPS payments are made with a low 1.9% fee.<br>
    -  <strong>ASIC support </strong> - Use your Obelisks, A3s, S11, B52s, and more!<br>
    -  <strong>No registration </strong> - Use your wallet address as your username for easy payouts.<br>
    -  <strong>No hidden fees </strong> - All payouts are free of charge.<br>
-   -  <strong>Quick payouts </strong> - Payments every 3 hours for balances above <b><?= $min_payout ?></b>.<br>
+   -  <strong>Quick payouts </strong> - Payments every 2 hours for balances above <b><?= $min_payout ?></b>.<br>
     </p>
 <p>
 <b>How PPS Payouts work: </b><br>
 - Every valid share you submit to SiaPrimeStats.com is instantly credited to your address.
 <br>- We will always pay out your earnings, even in the case of orphaned blocks.
-<br>- We charge a small 3% fee to provide stable payouts, absorb the risk of bad luck, and account for mining variance.
+<br>- We charge a small 1.9% fee to provide stable payouts, absorb the risk of bad luck, and account for mining variance.
 </p>
 </div></div>
 <br/>

@@ -83,7 +83,7 @@ function BackendBlockNew($coin, $db_block)
 function BackendSharesNew() {
 	debuglog(__METHOD__);
 	$start_time = time();
-	$coinids = array(1316, 1317);
+	$coinids = array(1316, 1317, 1318);
 
 	foreach($coinids as $coinid) {
 		$coin = getdbo('db_coins', $coinid);

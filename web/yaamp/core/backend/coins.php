@@ -175,7 +175,7 @@ function BackendCoinsUpdate()
 
 			else if ($coin->rpcencoding == 'SCP')
 			{
-				$coin->reward = 0.8*300000 - $template['height']);
+				$coin->reward = 0.8*(300000 - $template['height']);
                                 if($coin->reward < 50000) {
                                         $coin->reward = 50000;
                                 }

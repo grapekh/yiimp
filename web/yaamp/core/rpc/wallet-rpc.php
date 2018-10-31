@@ -40,7 +40,7 @@ class WalletRPC {
 				$this->rpc_wallet = new CryptoRPC("127.0.0.1", $coin->rpcport, $coin->rpcuser, $coin->rpcpasswd);
 				$this->coin = $coin;
 				break;
-			case 'SCP':
+			case 'SiaPrimeCoin':
 				$this->type = 'SiaPrimecoin';
 				$this->rpc = new SiaPrimeRPC($coin->rpchost, $coin->rpcport, $coin->rpcpasswd);
 				break;

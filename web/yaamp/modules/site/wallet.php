@@ -123,7 +123,7 @@ foreach($recents as $addr)
 	$coin = getdbo('db_coins', $user->coinid);
 
 	if($user->username == $username)
-		echo "<tr style='background-color: #e0d3e8;'><td width=24>";
+		echo "<tr style='background-color: #5fbcd3;'><td width=24>";
 	else
 		echo "<tr class='ssrow'><td width=24>";
 

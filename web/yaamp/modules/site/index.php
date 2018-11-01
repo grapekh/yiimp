@@ -50,9 +50,9 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600)." hours";
 <!--  -->
 
 <div class="main-left-box">
-<div class="main-left-title">Stratum Setup Guide</div>
+<div class="main-left-title">Stratum Servers</div>
 <div class="main-left-inner">
-<p>SiaPrimeStats.com - SiaPrime Mining Pool</p>
+<p>SiaPrime Mining Pool</p>
 <p class="main-left-box" style='padding: 3px; font-size: .8em; background-color: #ffffee; font-family: monospace;'>
 <br>SiaPrime URL:  stratum+tcp://SiaPrimeStats.com:3355
 </p>

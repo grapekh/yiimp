@@ -95,7 +95,7 @@ function showPageHeader()
 	showItemHeader(controller()->id=='stats', '/stats', 'Graphs');
 	showItemHeader($action=='miners', '/site/miners', 'Miners');
 	if (YIIMP_PUBLIC_EXPLORER)
-		showItemHeader(false, 'https://nav.siaprimestats.com/navigator', 'Explorer');
+		showItemHeader(false, 'https://explore.siaprimestats.com/navigator', 'Explorer');
 
 	if (YIIMP_PUBLIC_BENCHMARK)
 		showItemHeader(controller()->id=='bench', '/bench', 'Benchs');
@@ -125,7 +125,7 @@ function showPageHeader()
 	echo '<span style="float: right;">';
 
 	$mining = getdbosql('db_mining');
-	$nextpayment = date('H:i T', $mining->last_payout+YAAMP_PAYMENTS_FREQ);
+	$nextpayment = date('h:i T', $mining->last_payout+YAAMP_PAYMENTS_FREQ);
 
 	echo '<span style="font-size: .8em;color:white">Next Payout: '.$nextpayment.'</span>';
 

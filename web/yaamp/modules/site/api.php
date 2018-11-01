@@ -1,10 +1,10 @@
 <br>
 
 <div class="main-left-box">
-<div class="main-left-title">YiiMP API</div>
+<div class="main-left-title">SiaPrimeStats.com API</div>
 <div class="main-left-inner">
 
-<p>Simple REST API.</p>
+<p>Simple REST API</p>
 
 <p><b>Wallet Status</b></p>
 

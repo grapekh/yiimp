@@ -65,7 +65,7 @@ if (!defined('YAAMP_USE_NICEHASH_API')) define('YAAMP_USE_NICEHASH_API', false);
 if (!defined('NICEHASH_API_KEY')) define('NICEHASH_API_KEY','');
 if (!defined('NICEHASH_API_ID')) define('NICEHASH_API_ID','0000');
 if (!defined('NICEHASH_DEPOSIT')) define('NICEHASH_DEPOSIT','');
-if (!defined('NICEHASH_DEPOSIT_AMOUNT')) define('NICEHASH_DEPOSIT_AMOUNT','0.01');
+if (!defined('NICEHASH_DEPOSIT_AMOUNT')) define('NICEHASH_DEPOSIT_AMOUNT','0.11');
 
 // cli stuff
 if (!defined('YIIMP_CLI_ALLOW_TXS')) define('YIIMP_CLI_ALLOW_TXS', false);
